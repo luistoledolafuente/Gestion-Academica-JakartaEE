@@ -9,4 +9,5 @@ public interface NotaDAO {
     List<Nota> obtenerPorIdDetalle(int idDetalle);
     boolean actualizar(Nota nota);
     List<NotaInfo> obtenerInfoPorIdDetalle(int idDetalle);
+    void crearOActualizar(Nota nota);
 }

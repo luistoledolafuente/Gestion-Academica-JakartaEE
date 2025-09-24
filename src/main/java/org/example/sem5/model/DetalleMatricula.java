@@ -1,9 +1,10 @@
 package org.example.sem5.model;
 
+// Esta clase representa la tabla 'DetalleMatricula' de la base de datos.
 public class DetalleMatricula {
     private int idDetalle;
-    private int idMatricula; // Llave foránea a Matricula
-    private int idCurso;     // Llave foránea a Curso
+    private int idMatricula;
+    private int idCurso;
     private String estado;   // Corresponde al ENUM('matriculado', 'retirado')
 
     public DetalleMatricula() {
@@ -44,6 +45,8 @@ public class DetalleMatricula {
     public String getEstado() {
         return estado;
     }
+
+
 
     public void setEstado(String estado) {
         this.estado = estado;

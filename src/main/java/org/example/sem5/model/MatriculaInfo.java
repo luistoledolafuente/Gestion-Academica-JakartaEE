@@ -2,8 +2,10 @@ package org.example.sem5.model;
 
 import java.sql.Timestamp;
 
-// Esta clase es un DTO (Data Transfer Object) o ViewModel.
-// No corresponde a una tabla, sino que transporta datos combinados para la vista.
+/**
+ * DTO (Data Transfer Object) o ViewModel.
+ * No corresponde a una tabla, sino que transporta datos combinados para la vista.
+ */
 public class MatriculaInfo {
 
     private int idMatricula;
@@ -12,17 +14,26 @@ public class MatriculaInfo {
     private String nombreCompletoAlumno;
     private String codigoAlumno;
     private String nombrePeriodo;
+    private int idPeriodo; // <-- Campo nuevo
 
-    // Constructor, Getters y Setters
-    public MatriculaInfo(int idMatricula, Timestamp fechaMatricula, String estadoMatricula, String nombreCompletoAlumno, String codigoAlumno, String nombrePeriodo) {
+    // Constructor con todos los campos
+    public MatriculaInfo(int idMatricula,
+                         Timestamp fechaMatricula,
+                         String estadoMatricula,
+                         String nombreCompletoAlumno,
+                         String codigoAlumno,
+                         String nombrePeriodo,
+                         int idPeriodo) {
         this.idMatricula = idMatricula;
         this.fechaMatricula = fechaMatricula;
         this.estadoMatricula = estadoMatricula;
         this.nombreCompletoAlumno = nombreCompletoAlumno;
         this.codigoAlumno = codigoAlumno;
         this.nombrePeriodo = nombrePeriodo;
+        this.idPeriodo = idPeriodo;
     }
 
+    // Getters y Setters
     public int getIdMatricula() {
         return idMatricula;
     }
@@ -69,5 +80,13 @@ public class MatriculaInfo {
 
     public void setNombrePeriodo(String nombrePeriodo) {
         this.nombrePeriodo = nombrePeriodo;
+    }
+
+    public int getIdPeriodo() {
+        return idPeriodo;
+    }
+
+    public void setIdPeriodo(int idPeriodo) {
+        this.idPeriodo = idPeriodo;
     }
 }

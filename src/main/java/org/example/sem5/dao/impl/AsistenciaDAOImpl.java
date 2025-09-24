@@ -9,8 +9,8 @@ import java.util.List;
 
 public class AsistenciaDAOImpl implements AsistenciaDAO {
 
-    // Usamos ON DUPLICATE KEY UPDATE para insertar si no existe, o actualizar si ya existe.
-    // Esto es muy útil para la asistencia. Requiere que la tupla (idSesion, idDetalle) sea UNIQUE en la BD.
+    // Esta consulta SQL intenta insertar un registro. Si ya existe uno para esa sesión y ese alumno
+    // (gracias a la clave UNIQUE en la BD), en lugar de dar error, actualiza el estado.
     private static final String INSERT_OR_UPDATE_SQL = "INSERT INTO Asistencia (idSesion, idDetalle, estado) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE estado = VALUES(estado);";
     private static final String SELECT_BY_SESION_SQL = "SELECT * FROM Asistencia WHERE idSesion = ?;";
 

@@ -3,6 +3,7 @@ package org.example.sem5.dao.impl;
 import org.example.sem5.dao.ConexionDB;
 import org.example.sem5.dao.SesionClaseDAO;
 import org.example.sem5.model.SesionClase;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +11,16 @@ import java.util.List;
 public class SesionClaseDAOImpl implements SesionClaseDAO {
 
     private static final String INSERT_SQL = "INSERT INTO SesionClase (idCurso, idPeriodo, fecha, tema) VALUES (?, ?, ?, ?);";
+    private static final String SELECT_BY_ID_SQL = "SELECT * FROM SesionClase WHERE idSesion = ?;";
     private static final String SELECT_BY_CURSO_PERIODO_SQL = "SELECT * FROM SesionClase WHERE idCurso = ? AND idPeriodo = ? ORDER BY fecha;";
+    // 👆 Usamos ORDER BY fecha ASC (cronológico)
+    private static final String UPDATE_SQL = "UPDATE SesionClase SET fecha = ?, tema = ? WHERE idSesion = ?;";
     private static final String DELETE_SQL = "DELETE FROM SesionClase WHERE idSesion = ?;";
 
     @Override
     public void crear(SesionClase sesion) {
-        try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(INSERT_SQL)) {
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(INSERT_SQL)) {
             ps.setInt(1, sesion.getIdCurso());
             ps.setInt(2, sesion.getIdPeriodo());
             ps.setTimestamp(3, sesion.getFecha());
@@ -27,9 +32,32 @@ public class SesionClaseDAOImpl implements SesionClaseDAO {
     }
 
     @Override
+    public SesionClase obtenerPorId(int id) {
+        SesionClase sesion = null;
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(SELECT_BY_ID_SQL)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                sesion = new SesionClase(
+                        rs.getInt("idSesion"),
+                        rs.getInt("idCurso"),
+                        rs.getInt("idPeriodo"),
+                        rs.getTimestamp("fecha"),
+                        rs.getString("tema")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sesion;
+    }
+
+    @Override
     public List<SesionClase> obtenerPorCursoYPeriodo(int idCurso, int idPeriodo) {
         List<SesionClase> sesiones = new ArrayList<>();
-        try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(SELECT_BY_CURSO_PERIODO_SQL)) {
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(SELECT_BY_CURSO_PERIODO_SQL)) {
             ps.setInt(1, idCurso);
             ps.setInt(2, idPeriodo);
             ResultSet rs = ps.executeQuery();
@@ -49,9 +77,25 @@ public class SesionClaseDAOImpl implements SesionClaseDAO {
     }
 
     @Override
+    public boolean actualizar(SesionClase sesion) {
+        boolean rowUpdated = false;
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(UPDATE_SQL)) {
+            ps.setTimestamp(1, sesion.getFecha());
+            ps.setString(2, sesion.getTema());
+            ps.setInt(3, sesion.getIdSesion());
+            rowUpdated = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdated;
+    }
+
+    @Override
     public boolean eliminar(int idSesion) {
         boolean rowDeleted = false;
-        try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(DELETE_SQL)) {
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(DELETE_SQL)) {
             ps.setInt(1, idSesion);
             rowDeleted = ps.executeUpdate() > 0;
         } catch (SQLException e) {
