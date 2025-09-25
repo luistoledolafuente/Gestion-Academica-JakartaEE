@@ -124,8 +124,8 @@ Agrega imágenes de la aplicación en funcionamiento:
 
 - ✍️ **Luis Miguel Toledo La Fuente**  
 - 🌍 Lima, Perú  
-- 📧 Contacto por correo  
-- 💼 [LinkedIn](www.linkedin.com/in/luis-miguel-toledo-la-fuente-241a54306)  
+- 📧 luismiguel.tlf@gmail.com  
+- 💼 [LinkedIn](https://www.linkedin.com/in/luis-miguel-toledo-la-fuente-241a54306)  
 
 
 ## 📜 Licencia
