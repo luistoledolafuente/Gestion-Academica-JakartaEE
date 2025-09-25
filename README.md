@@ -58,18 +58,7 @@ Descarga la base de datos e importa
 
 ## 📂 Estructura del Proyecto
 
-src/main/
-├── java/org/example/sem5/
-│   ├── controller/   # Servlets (Controladores MVC)
-│   ├── dao/          # Interfaces DAO
-│   │   └── impl/     # Implementaciones JDBC
-│   └── model/        # Modelos (POJOs)
-│
-└── webapp/
-    ├── vistas/       # JSPs organizados por módulos
-    ├── WEB-INF/
-    │   └── web.xml   # Configuración de despliegue
-    └── index.jsp     # Dashboard principal
+<img width="713" height="433" alt="image" src="https://github.com/user-attachments/assets/62ea3710-303a-42e3-a5ba-4a16f738c621" />
 
 # 🗃️ Base de Datos
 
